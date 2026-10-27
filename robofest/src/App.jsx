@@ -30,13 +30,13 @@ const events = [
     category: "COMBAT & CONTROL",
     accent: "mint",
     description:
-      "Built to battle. Engineered to outlast. Bring your bot into the arena and let your engineering do the talking.",
+      "Design and build combat robots that can withstand intense battles. Test your engineering skills in the arena.",
     icon: Crosshair,
     team: "1–4 members",
     format: "8 kg class",
     date: "22 March 2026",
     detail:
-      "A wireless, remote-controlled robot combat competition. Design a battle-ready machine that balances strength, control, and resilience. The official event page contains the complete rules and safety requirements.",
+      "A wireless, remote-controlled robot combat competition. Teams design battle-ready machines balancing offensive power, defensive strategy, and precise control. Robots must meet weight and safety specifications detailed on the official event page.",
     url: "https://unstop.com/competitions/robowars-robofest-26-robofest-26-national-institute-of-technology-nit-raipur-1656702",
   },
   {
@@ -46,13 +46,13 @@ const events = [
     category: "SPEED & PRECISION",
     accent: "purple",
     description:
-      "Every turn is a test. Every second counts. Take on an obstacle track where a clever build beats raw speed.",
+      "Navigate obstacle courses where smart design matters more than raw speed. Build a robot that can handle the challenge.",
     icon: Zap,
     team: "1–4 members",
     format: "Obstacle track",
     date: "23 March 2026",
     detail:
-      "Build your own robot to navigate an obstacle track with speed and precision. The published specifications list a 5 kg weight limit and a maximum size of 25 × 25 × 25 cm. Check the official rules for full requirements.",
+      "Build a robot to complete an obstacle course as quickly as possible. Specifications include a 5 kg weight limit and maximum dimensions of 25 × 25 × 25 cm. Track details and full rules are available on the official event page.",
     url: "https://unstop.com/competitions/roborace-robofest26-robofest-26-national-institute-of-technology-nit-raipur-1655808",
   },
   {
@@ -62,13 +62,13 @@ const events = [
     category: "CODE & CREATE",
     accent: "orange",
     description:
-      "Big problems. Bold ideas. Turn a blank canvas into a robotics breakthrough in a 24-hour building sprint.",
+      "A 24-hour robotics hackathon. Tackle simulation challenges in drones, underwater bots, and autonomous systems.",
     icon: Code2,
     team: "2–4 members",
     format: "24-hour hackathon",
     date: "22–23 March 2026",
     detail:
-      "A simulation-based robotics hackathon with challenges across drones, underwater robotics, nanobots, and six-legged rovers. Collaborate, prototype, and demonstrate your approach over 24 hours.",
+      "A simulation-based robotics hackathon with challenges across multiple domains: drones, underwater robotics, nanobots, and six-legged rovers. Teams collaborate to prototype and demonstrate solutions within 24 hours.",
     url: "https://robotix.nitrr.ac.in/robofest/robothon",
   },
 ];
@@ -76,19 +76,19 @@ const events = [
 const faqs = [
   [
     "What is Robofest?",
-    "Robofest is a robotics and technology event presented by ROBOTiX Club, NIT Raipur. The 2026 edition is part of ANANTYA’26 and brings together competitions in building, coding, and innovation.",
+    "Robofest is NIT Raipur’s annual robotics festival, organized by ROBOTiX Club as part of ANANTYA. It features competitive events in robot combat, racing, and simulation-based challenges for students across India.",
   ],
   [
-    "Do I need to be an expert in robotics?",
-    "There are different ways to get involved, from programming and problem-solving to designing a physical robot. Read the official requirements for your chosen event and pick a challenge that fits your experience.",
+    "Do I need robotics experience?",
+    "Not necessarily. Events range from hardware-focused competitions like Robowar to software-based challenges like Robothon. Check the specific requirements for each event to find what matches your skill level.",
   ],
   [
-    "Can I participate with a team?",
-    "Yes. The featured events accept teams: Robowar and Roborace list 1–4 members, while Robothon lists 2–4 members. Always confirm the rules on the official event page.",
+    "What are the team size requirements?",
+    "Robowar and Roborace: 1–4 members. Robothon: 2–4 members. Check the official event pages for complete eligibility criteria.",
   ],
   [
     "How do I register?",
-    "The published 2026 edition took place on 22–23 March 2026. This is a recruitment design project, so it does not collect registrations. Visit the official ROBOTiX website for future dates, eligibility, fees, and registration updates.",
+    "This website showcases the 2026 event design. The March 2026 edition has concluded. For future editions, registration details, and dates, visit the official ROBOTiX website.",
   ],
 ];
 
@@ -182,7 +182,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openFaq, setOpenFaq] = useState(null);
   const menuButtonRef = useRef(null);
   const eventTriggerRef = useRef(null);
 
@@ -279,15 +279,13 @@ export default function App() {
                 ROBOFEST <span>2026</span>
               </p>
               <h1 id="hero-title">
-                Build beyond
-                <br />
-                the <span>ordinary.</span>
+                Build beyond the <span>ordinary.</span>
               </h1>
               <p className="hero-description">
-                A little curiosity. A lot of possibility.
-                <br className="desktop-break" /> Step into a world where your
-                ideas move, think,
-                <br className="desktop-break" /> and come to life.
+                Where robotics, AI, and innovation come to life.
+                <br className="desktop-break" /> Build intelligent machines, solve
+                real-world challenges, and turn bold ideas into working
+                technology at NIT Raipur.
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#events">
@@ -348,39 +346,38 @@ export default function App() {
           <div className="about-grid">
             <div>
               <h2 id="about-title">
-                Not just a fest.
-                <br />A <span className="serif-accent">spark</span> for what’s
-                next.
+                Not just a competition.
+                <br />A <span className="serif-accent">platform</span> for builders.
               </h2>
               <div className="about-signature">
                 <span className="tiny-bracket">[</span>
                 <Cpu size={22} />
                 <span>
-                  IMAGINED BY YOU.
+                  DESIGNED FOR STUDENTS.
                   <br />
-                  <strong>POWERED BY ROBOTiX.</strong>
+                  <strong>ORGANIZED BY ROBOTiX.</strong>
                 </span>
                 <span className="tiny-bracket">]</span>
               </div>
             </div>
             <div className="about-copy">
               <p>
-                Some see a pile of parts.
+                Robotics competitions that challenge your skills.
                 <br />
-                <span>We see the beginning of something incredible.</span>
+                <span>Real problems. Practical solutions.</span>
               </p>
               <p>
-                Robofest brings curious minds together at NIT Raipur to build,
-                experiment, and push the possibilities of robotics. Presented by
-                ROBOTiX Club as part of ANANTYA ’26, it’s where classroom ideas
-                meet real challenges.
+                Robofest brings together students from across India at NIT Raipur
+                for hands-on robotics challenges. Organized by ROBOTiX Club as part
+                of ANANTYA ‘26, it features competitions ranging from combat robots
+                to simulation-based hackathons.
               </p>
               <p>
-                From your first circuit to your next breakthrough—there’s a
-                challenge waiting for you.
+                Whether you’re building hardware or writing algorithms, there’s a
+                competition designed to test your abilities.
               </p>
               <a className="inline-link" href="#events">
-                Find your challenge <ArrowUpRight size={17} />
+                View competitions <ArrowUpRight size={17} />
               </a>
             </div>
           </div>
@@ -428,11 +425,11 @@ export default function App() {
             <div className="section-heading">
               <div>
                 <h2 id="events-title">
-                  Find your <span className="serif-accent">arena.</span>
+                  Choose your <span className="serif-accent">competition.</span>
                 </h2>
                 <p>
-                  Different challenges. One thing in common: you, building
-                  something great.
+                  Three main events. Different challenges. Pick the one that
+                  matches your skills.
                 </p>
               </div>
               <a
@@ -491,8 +488,8 @@ export default function App() {
             <div className="events-footnote">
               <span className="status-dot" />
               <span>
-                Arena, workshop, or a blank screen. Great things start when you
-                show up.
+                Competitions designed to challenge engineering, coding, and
+                problem-solving skills.
               </span>
               <span className="footnote-coordinate">
                 NIT RAIPUR / CHHATTISGARH
@@ -515,17 +512,17 @@ export default function App() {
             </div>
             <div className="register-content">
               <span className="eyebrow">
-                <span className="status-dot" /> LESS SCROLLING. MORE BUILDING.
+                <span className="status-dot" /> READY TO PARTICIPATE?
               </span>
               <h2 id="register-title">
-                The future won’t
+                Join the next
                 <br />
-                build <span className="serif-accent">itself.</span>
+                <span className="serif-accent">edition.</span>
               </h2>
               <p>
-                Find your people. Take on a challenge.
+                Connect with fellow builders. Test your skills.
                 <br />
-                Make something you’re proud to call yours.
+                Be part of NIT Raipur’s premier robotics event.
               </p>
               <a
                 className="button button-primary"
@@ -554,14 +551,14 @@ export default function App() {
         >
           <div className="faq-heading">
             <div className="section-label">
-              <span>03 / GOOD TO KNOW</span>
+              <span>03 / FREQUENTLY ASKED</span>
             </div>
             <h2 id="faq-title">
-              Curious?
+              Questions?
               <br />
-              <span className="serif-accent">Good.</span>
+              <span className="serif-accent">Answered.</span>
             </h2>
-            <p>That’s how every great idea starts.</p>
+            <p>Everything you need to know about participating.</p>
           </div>
           <div className="faq-list">
             {faqs.map(([question, answer], i) => (
@@ -602,9 +599,9 @@ export default function App() {
             <div>
               <Brand footer />
               <p>
-                A community of curious minds.
+                NIT Raipur's robotics community.
                 <br />
-                Building things that move the world.
+                Building, competing, innovating.
               </p>
             </div>
             <div className="footer-links">
@@ -621,7 +618,7 @@ export default function App() {
           <div className="footer-bottom">
             <span>© 2026 · ROBOFEST concept for ROBOTiX Club, NIT Raipur.</span>
             <span>
-              Made by <strong>Ayush Chauhan</strong> · AI-assisted
+              Made by <strong>Ayush Chauhan</strong>
             </span>
           </div>
         </div>

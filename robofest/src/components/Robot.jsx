@@ -31,15 +31,15 @@ export default function Robot() {
 
       // A slower, small movement pivots the head around the neck socket.
       const headTarget = reducedMotion.matches ? { x: 0, y: 0 } : target;
-      head.x += (headTarget.x - head.x) * 0.1;
-      head.y += (headTarget.y - head.y) * 0.1;
+      head.x += (headTarget.x - head.x) * 0.15;
+      head.y += (headTarget.y - head.y) * 0.15;
       headRef.current?.setAttribute(
         "transform",
-        `translate(0 ${head.y * 0.35}) rotate(${head.x * 0.3} 300 300) rotate(-7 300 209)`,
+        `translate(0 ${head.y * 0.5}) rotate(${head.x * 0.45} 300 300) rotate(-7 300 209)`,
       );
       neckRef.current?.setAttribute(
         "transform",
-        `rotate(${head.x * 0.15} 300 310)`,
+        `rotate(${head.x * 0.4} 300 310) translate(${head.x * 0.1} ${head.y * 0.3})`,
       );
       const remaining = Math.abs(target.x - gaze.x) + Math.abs(target.y - gaze.y)
         + Math.abs(headTarget.x - head.x) + Math.abs(headTarget.y - head.y);

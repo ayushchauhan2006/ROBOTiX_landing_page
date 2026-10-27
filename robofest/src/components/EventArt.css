@@ -1,48 +1,8 @@
-.event-motion { overflow: hidden; }
-.battle-left { animation: battle-left 3.2s infinite; }
-.battle-right { animation: battle-right 3.2s infinite; }
-.battle-impact { animation: battle-impact 3.2s infinite; }
-@keyframes battle-left {
-  0%, 15%, 100% { transform: translateX(-112px); }
-  42% { transform: translateX(-40px); }
-  48% { transform: translateX(-53px); }
-  57% { transform: translateX(-40px); }
-  72% { transform: translateX(-75px); }
+.premium-event-scene { overflow: hidden; }
+.premium-event-scene .scene-caption {
+  font-family: monospace;
+  font-size: 7px;
+  letter-spacing: 1.3px;
 }
-@keyframes battle-right {
-  0%, 15%, 100% { transform: translateX(112px); }
-  42% { transform: translateX(40px); }
-  48% { transform: translateX(53px); }
-  57% { transform: translateX(40px); }
-  72% { transform: translateX(75px); }
-}
-@keyframes battle-impact {
-  0%, 38%, 49%, 54%, 68%, 100% { opacity: 0; transform: scale(.5); }
-  42%, 57% { opacity: 1; transform: scale(1); }
-  47%, 65% { opacity: 0; transform: scale(1.5); }
-}
-.race-car {
-  offset-path: path("M112 60 H308 A72 72 0 0 1 308 205 H112 A72 72 0 0 1 112 60 Z");
-  offset-rotate: auto;
-  animation: race-lap 6s linear infinite;
-}
-.race-car-1 { animation-duration: 6.7s; animation-delay: -2.2s; }
-.race-car-2 { animation-duration: 5.6s; animation-delay: -3.8s; }
-@keyframes race-lap { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-.build-head { animation: assemble-head 5s ease-in-out infinite; }
-.build-arms { animation: assemble-arms 5s ease-in-out infinite; transform-origin: 251px 148px; }
-.build-code { animation: code-pulse 1.3s ease-in-out infinite alternate; }
-.build-scan { animation: build-scan 5s linear infinite; }
-@keyframes assemble-head { 0%, 12%, 100% { transform: translateY(-30px); opacity: .2; } 35%, 85% { transform: translateY(0); opacity: 1; } }
-@keyframes assemble-arms { 0%, 25%, 100% { transform: scaleX(1.35); opacity: 0; } 50%, 85% { transform: scaleX(1); opacity: 1; } }
-@keyframes code-pulse { from { opacity: .3; } to { opacity: 1; } }
-@keyframes build-scan { 0%, 45%, 90%, 100% { opacity: 0; transform: translateY(65px); } 50% { opacity: .8; transform: translateY(65px); } 85% { opacity: .8; transform: translateY(190px); } }
-@media (prefers-reduced-motion: reduce) {
-  .event-motion * { animation: none !important; }
-  .battle-left { transform: translateX(-85px); }
-  .battle-right { transform: translateX(85px); }
-  .battle-impact, .build-scan { opacity: 0; }
-  .race-car-0 { offset-distance: 12%; }
-  .race-car-1 { offset-distance: 45%; }
-  .race-car-2 { offset-distance: 78%; }
-}
+/* Position and motion share a single SVG transform, avoiding CSS/SVG origin conflicts. */
+.premium-event-scene [data-part] { will-change: auto; }
