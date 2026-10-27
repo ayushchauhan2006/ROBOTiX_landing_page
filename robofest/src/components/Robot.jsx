@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import "./Robot.css";
 
 /** An original SVG robot. Its gaze follows the page pointer without React rerenders. */
-export default function Robot() {
+export default function Robot({ hanging = false }) {
   const prefix = useId().replace(/:/g, "");
   const stageRef = useRef(null);
   const gazeRef = useRef(null);
@@ -53,19 +53,14 @@ export default function Robot() {
     const followPointer = (event) => {
       // Touch remains native: tapping the robot waves, and scrolling stays free.
       if (event.pointerType === "touch") return;
-      const bounds = stageRef.current?.getBoundingClientRect();
-      if (!bounds) return;
-      const faceX = bounds.left + bounds.width * 0.5;
-      const faceY = bounds.top + bounds.height * 0.35;
+      const svg = stageRef.current?.querySelector("svg");
+      const matrix = svg?.getScreenCTM();
+      if (!matrix) return;
+      // Convert the pointer to SVG coordinates, including the upside-down rotation.
+      const pointer = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
       target = {
-        x: Math.max(
-          -12,
-          Math.min(12, ((event.clientX - faceX) / bounds.width) * 22),
-        ),
-        y: Math.max(
-          -8,
-          Math.min(8, ((event.clientY - faceY) / bounds.height) * 16),
-        ),
+        x: Math.max(-12, Math.min(12, ((pointer.x - 300) / 600) * 22)),
+        y: Math.max(-8, Math.min(8, ((pointer.y - 210) / 600) * 16)),
       };
       if (!frame) frame = requestAnimationFrame(animateEyes);
     };
@@ -100,15 +95,18 @@ export default function Robot() {
   return (
     <button
       ref={stageRef}
-      className={`robot-interactive${isWaving ? " robot-is-waving" : ""}`}
+      className={`robot-interactive${hanging ? " robot-hanging" : ""}${isWaving ? " robot-is-waving" : ""}`}
       type="button"
       onClick={wave}
-      aria-label="Meet Bolt, our robot. Click or press Enter to say hello."
+      onPointerEnter={(event) => {
+        if (event.pointerType !== "touch") wave();
+      }}
+      aria-label={hanging ? "Say hi to upside-down Bolt" : "Meet Bolt, our robot. Click or press Enter to say hello."}
       title="Say hello to Bolt"
     >
       <svg
         className="robot-scene"
-        viewBox="0 0 600 600"
+        viewBox={hanging ? "145 60 345 420" : "0 0 600 600"}
         fill="none"
         aria-hidden="true"
       >

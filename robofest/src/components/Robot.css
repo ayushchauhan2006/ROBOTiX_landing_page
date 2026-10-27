@@ -175,3 +175,34 @@
   font-size: 18px;
   font-weight: 600;
 }
+
+/* Bolt peeks down from the sticky header once his hero has scrolled away. */
+.header-hanging-robot {
+  position: fixed;
+  right: clamp(16px, 4vw, 64px);
+  width: 116px;
+  z-index: 29;
+  transform-origin: top center;
+  animation: bolt-peek-in .5s cubic-bezier(.22, 1, .36, 1) both;
+}
+.robot-hanging .robot-scene {
+  transform: rotate(180deg);
+  transform-origin: center;
+  filter: drop-shadow(0 -5px 8px #0005);
+}
+.robot-hanging .robot-floating { animation: none; }
+.robot-hanging .robot-platform,
+.robot-hanging .robot-shadow { display: none; }
+.robot-hanging .robot-greeting { top: 42%; right: calc(100% + 5px); }
+.robot-hanging .robot-greeting > span { white-space: nowrap; font-size: 15px; padding: 7px 12px; }
+.robot-hanging:focus-visible { outline-offset: 2px; }
+@keyframes bolt-peek-in {
+  from { opacity: 0; transform: translateY(-25px) scale(.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (max-width: 760px) {
+  .header-hanging-robot { width: 82px; right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-hanging-robot { animation: none; }
+}

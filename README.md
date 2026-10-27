@@ -21,9 +21,9 @@ The event identity leads the hero, supported by the tagline **“Build beyond th
 ## Highlights
 
 - **Interactive robot:** Bolt follows the cursor with its eyes and gentle neck movement, then waves and says “Hi!” when clicked or tapped.
-- **Robowar:** two combat bots approach, collide, and recoil, with a spinning weapon and impact sparks.
-- **Roborace:** three bots follow a circuit with individual speeds and light trails.
-- **Robothon:** a robotic arm transfers a component alongside an animated code display.
+- **Robowar:** a user-supplied combat clip plays as a muted loop.
+- **Roborace:** a supplied racing video, trimmed to remove the closing title screen and played on a continuous loop.
+- **Robothon:** a supplied video loop showing robotic arms assembling a rover.
 - **Event details:** cards open dialogs with competition information and links to official pages.
 - **Responsive navigation:** layouts adapt to desktop, tablet, and mobile screens.
 - **Accessible interactions:** keyboard controls, visible focus indicators, collapsible FAQs, and reduced-motion support.
@@ -32,11 +32,11 @@ The event identity leads the hero, supported by the tagline **“Build beyond th
 
 **React · HTML/JSX · CSS · JavaScript · SVG · Vite**
 
-The interface uses Lucide React icons and Google Fonts. The robot and event scenes are drawn in SVG, with JavaScript and CSS handling their interactions and animation. No backend is required.
+The interface uses Lucide React icons and Google Fonts. The robot is drawn in SVG. Event visuals use supplied video loops; JavaScript manages interactions and pauses media outside the viewport. No backend is required.
 
 ## Credits
 
-I chose the technology stack and guided the design and revisions. **OpenAI Codex provided substantial assistance with implementation, styling, animations, and documentation.** The page is a custom implementation rather than an unchanged template.
+I chose the technology stack and guided the design and revisions. **OpenAI Codex provided substantial assistance with implementation, styling, animations, and documentation. Gemini was used for the event videos.** The page is a custom implementation rather than an unchanged template.
 
 Event information and the latest color direction reference the [official ROBOFEST website](https://robotix.nitrr.ac.in/robofest). The March 22–23, 2026 edition has concluded, so the page directs visitors to the club for future registration updates.
 

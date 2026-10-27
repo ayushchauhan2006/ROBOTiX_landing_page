@@ -1,0 +1,30 @@
+.register-circuit {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  width: 32%;
+  max-width: 360px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #29cce8;
+}
+.register-circuit svg { display: block; width: 100%; height: auto; }
+.register-circuit-wire-glow { stroke: currentColor; stroke-width: 5; opacity: .055; }
+.register-circuit-trace { stroke: currentColor; stroke-width: 1.2; opacity: .6; }
+.register-circuit-terminal { stroke: currentColor; stroke-width: 1; fill: #0a1729; opacity: .8; }
+.register-circuit-pulse {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 6 94;
+  opacity: .95;
+  filter: drop-shadow(0 0 3px currentColor);
+  animation: register-circuit-flow var(--wire-speed) linear infinite;
+  animation-delay: var(--wire-delay);
+}
+@keyframes register-circuit-flow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@media (max-width: 1000px) { .register-circuit { right: 2%; width: 29%; } }
+@media (max-width: 760px) {
+  .register-circuit { position: relative; right: auto; top: auto; transform: none; width: 210px; max-width: 100%; margin: 28px auto 0; }
+}
+@media (prefers-reduced-motion: reduce) { .register-circuit-pulse { animation: none; opacity: .25; } }

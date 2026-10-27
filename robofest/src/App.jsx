@@ -17,7 +17,9 @@ import {
   Plus,
 } from "lucide-react";
 import Robot from "./components/Robot.jsx";
-import EventArt from "./components/EventArt.jsx";
+import EventVideo from "./components/EventVideo.jsx";
+import HeroCircuit from "./components/HeroCircuit.jsx";
+import RobotixCircuit from "./components/RobotixCircuit.jsx";
 
 const OFFICIAL_URL = "https://robotix.nitrr.ac.in/robofest";
 
@@ -183,6 +185,10 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
+  const [showHangingRobot, setShowHangingRobot] = useState(false);
+  const [hangingTop, setHangingTop] = useState(88);
+  const headerRef = useRef(null);
+  const heroRobotRef = useRef(null);
   const menuButtonRef = useRef(null);
   const eventTriggerRef = useRef(null);
 
@@ -213,6 +219,31 @@ export default function App() {
     return () => window.removeEventListener("keydown", close);
   }, [menuOpen]);
 
+  useEffect(() => {
+    let frame = 0;
+    const checkRobot = () => {
+      frame = 0;
+      const robot = heroRobotRef.current?.getBoundingClientRect();
+      const header = headerRef.current?.getBoundingClientRect();
+      if (robot && header) {
+        setShowHangingRobot(robot.bottom <= header.bottom);
+        setHangingTop(header.bottom - 5);
+      }
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(checkRobot); };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    const observer = new ResizeObserver(schedule);
+    if (heroRobotRef.current) observer.observe(heroRobotRef.current);
+    checkRobot();
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      observer.disconnect();
+    };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -220,7 +251,7 @@ export default function App() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
+      <header ref={headerRef} className="site-header">
         <div className="header-inner container">
           <Brand />
           <nav
@@ -265,10 +296,16 @@ export default function App() {
           </button>
         </div>
       </header>
+      {showHangingRobot && !menuOpen && !selectedEvent && (
+        <div className="header-hanging-robot" style={{ top: hangingTop }}>
+          <Robot hanging />
+        </div>
+      )}
 
       <main id="main">
         <section className="hero" id="home" aria-labelledby="hero-title">
           <div className="hero-grid" aria-hidden="true" />
+          <HeroCircuit />
           <div className="container hero-layout">
             <div className="hero-copy">
               <div className="edition-badge">
@@ -307,7 +344,8 @@ export default function App() {
                 </span>
               </div>
             </div>
-            <div className="hero-visual">
+            <div ref={heroRobotRef} className="hero-visual">
+              <HeroCircuit portal />
               <div className="orbit orbit-one" aria-hidden="true" />
               <div className="orbit orbit-two" aria-hidden="true" />
               <span className="visual-cross cross-one" aria-hidden="true">
@@ -452,7 +490,7 @@ export default function App() {
                     <div className="event-art">
                       <span className="event-number">/{event.number}</span>
                       <span className="event-art-label">ROBOFEST ’26</span>
-                      <EventArt type={event.id} />
+                      <EventVideo type={event.id} />
                       <span className="art-cross" aria-hidden="true">
                         +
                       </span>
@@ -504,12 +542,6 @@ export default function App() {
           aria-labelledby="register-title"
         >
           <div className="register-panel">
-            <div className="register-decoration" aria-hidden="true">
-              <div />
-              <div />
-              <div />
-              <Cpu size={96} strokeWidth={0.6} />
-            </div>
             <div className="register-content">
               <span className="eyebrow">
                 <span className="status-dot" /> READY TO PARTICIPATE?
@@ -538,9 +570,7 @@ export default function App() {
                 Check ROBOTiX for future events and registration updates.
               </p>
             </div>
-            <div className="register-corner" aria-hidden="true">
-              YOUR NEXT CHAPTER / STARTS HERE <ArrowUpRight size={16} />
-            </div>
+            <RobotixCircuit />
           </div>
         </section>
 
