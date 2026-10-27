@@ -6,14 +6,18 @@ export default function Robot() {
   const prefix = useId().replace(/:/g, "");
   const stageRef = useRef(null);
   const gazeRef = useRef(null);
+  const headRef = useRef(null);
+  const neckRef = useRef(null);
   const waveTimerRef = useRef(null);
   const [isWaving, setIsWaving] = useState(false);
+  const [greetingCount, setGreetingCount] = useState(0);
   const paint = (name) => `url(#${prefix}-${name})`;
 
   useEffect(() => {
     let frame = 0;
     let gaze = { x: 0, y: 0 };
     let target = { x: 0, y: 0 };
+    const head = { x: 0, y: 0 };
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const animateEyes = () => {
@@ -25,7 +29,21 @@ export default function Robot() {
         `translate(${gaze.x} ${gaze.y})`,
       );
 
-      if (Math.abs(target.x - gaze.x) + Math.abs(target.y - gaze.y) > 0.05) {
+      // A slower, small movement pivots the head around the neck socket.
+      const headTarget = reducedMotion.matches ? { x: 0, y: 0 } : target;
+      head.x += (headTarget.x - head.x) * 0.1;
+      head.y += (headTarget.y - head.y) * 0.1;
+      headRef.current?.setAttribute(
+        "transform",
+        `translate(0 ${head.y * 0.35}) rotate(${head.x * 0.3} 300 300) rotate(-7 300 209)`,
+      );
+      neckRef.current?.setAttribute(
+        "transform",
+        `rotate(${head.x * 0.15} 300 310)`,
+      );
+      const remaining = Math.abs(target.x - gaze.x) + Math.abs(target.y - gaze.y)
+        + Math.abs(headTarget.x - head.x) + Math.abs(headTarget.y - head.y);
+      if (remaining > 0.05) {
         frame = requestAnimationFrame(animateEyes);
       } else {
         frame = 0;
@@ -60,17 +78,21 @@ export default function Robot() {
     window.addEventListener("pointermove", followPointer, { passive: true });
     document.documentElement.addEventListener("pointerleave", resetGaze);
     window.addEventListener("blur", resetGaze);
+    reducedMotion.addEventListener("change", resetGaze);
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(waveTimerRef.current);
       window.removeEventListener("pointermove", followPointer);
       document.documentElement.removeEventListener("pointerleave", resetGaze);
       window.removeEventListener("blur", resetGaze);
+      reducedMotion.removeEventListener("change", resetGaze);
     };
   }, []);
 
   const wave = () => {
     clearTimeout(waveTimerRef.current);
+    // Remount only the waving arm so even rapid clicks restart its animation.
+    setGreetingCount((count) => count + 1);
     setIsWaving(true);
     waveTimerRef.current = setTimeout(() => setIsWaving(false), 1700);
   };
@@ -301,8 +323,10 @@ export default function Robot() {
             strokeWidth="2"
             strokeLinecap="round"
           />
-          <path d="M271 269h61v49h-61z" fill="#102A34" />
-          <path d="M272 286h59M273 296h57" stroke="#6C8788" strokeWidth="3" />
+          <g ref={neckRef}>
+            <path d="M271 269h61v49h-61z" fill="#102A34" />
+            <path d="M272 286h59M273 296h57" stroke="#6C8788" strokeWidth="3" />
+          </g>
 
           <g className="robot-arm-left">
             <ellipse
@@ -360,7 +384,7 @@ export default function Robot() {
               strokeWidth="3"
               strokeLinecap="round"
             />
-            <g className="robot-forearm">
+            <g key={greetingCount} className="robot-forearm">
               <circle
                 cx="417"
                 cy="370"
@@ -456,7 +480,7 @@ export default function Robot() {
             strokeLinecap="round"
           />
 
-          <g className="robot-head" transform="rotate(-7 300 209)">
+          <g ref={headRef} className="robot-head" transform="rotate(-7 300 209)">
             <path d="M298 116v-29" stroke="#718D8A" strokeWidth="8" />
             <path d="M296 111V87" stroke="#D3E3D6" strokeWidth="2" />
             <circle
@@ -609,8 +633,8 @@ export default function Robot() {
           </g>
         </g>
       </svg>
-      <span className="robot-sr-only" aria-live="polite">
-        {isWaving ? "Bolt waves hello!" : ""}
+      <span className="robot-greeting" role="status" aria-live="polite">
+        {isWaving && <span key={greetingCount}>Hi!</span>}
       </span>
     </button>
   );
