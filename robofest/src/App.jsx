@@ -322,15 +322,9 @@ export default function App() {
                 <span className="status-dot" /> HELLO, HUMAN.
               </div>
               <Robot />
-              <span className="robot-caption">
-                <span className="caption-line" /> BOLT / YOUR ROBOFEST COMPANION
-              </span>
               <div className="cursor-hint">
-                <MoveUpRight size={14} />
-                <span className="pointer-hint">
-                  Move your cursor. I’m watching.
-                </span>
-                <span className="touch-hint">Tap me. I’ll say hello.</span>
+                <span className="pointer-hint">Click me to say hi!</span>
+                <span className="touch-hint">Tap me to say hi!</span>
               </div>
             </div>
             <div className="hero-bottom">
@@ -341,23 +335,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        <div className="ticker" aria-label="Build. Code. Compete. Innovate.">
-          <div className="container ticker-inner">
-            <span>BUILD</span>
-            <Plus />
-            <span>CODE</span>
-            <Plus />
-            <span>COMPETE</span>
-            <Plus />
-            <span>INNOVATE</span>
-            <Plus />
-            <span className="ticker-outline" aria-hidden="true">
-              REPEAT
-            </span>
-            <Plus className="last-plus" />
-          </div>
-        </div>
 
         <section
           className="about-section section-pad container"
