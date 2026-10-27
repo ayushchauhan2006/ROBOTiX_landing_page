@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.sites-runtime/
+# Keep the earlier private Sites preview metadata local.
+.openai/
+.DS_Store
+*.local

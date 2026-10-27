@@ -1,0 +1,159 @@
+.robot-interactive {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  padding: 0;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 48%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+}
+
+.robot-interactive:focus-visible {
+  outline: 1px dashed rgba(99, 245, 226, 0.6);
+  outline-offset: -30px;
+}
+
+.robot-scene {
+  display: block;
+  overflow: visible;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 22px 18px rgba(0, 0, 0, 0.16));
+}
+
+.robot-floating {
+  animation: robot-hover 5.5s ease-in-out infinite;
+}
+
+.robot-shadow {
+  transform-origin: 300px 504px;
+  animation: robot-shadow-breathe 5.5s ease-in-out infinite;
+}
+
+.robot-antenna-glow {
+  animation: robot-signal 3s ease-in-out infinite;
+}
+
+.robot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: robot-blink 7s infinite;
+}
+
+.robot-forearm {
+  transform-origin: 417px 370px;
+  transition: transform 0.4s ease;
+}
+
+.robot-interactive:hover .robot-forearm {
+  transform: rotate(-8deg);
+}
+
+.robot-is-waving .robot-forearm {
+  animation: robot-wave 1.6s ease-in-out;
+}
+
+.robot-is-waving .robot-smile {
+  stroke-width: 4;
+  stroke-opacity: 1;
+}
+
+.robot-is-waving .robot-eyes {
+  animation: none;
+  transform: scaleY(0.72);
+}
+
+.robot-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes robot-hover {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(1deg);
+  }
+}
+
+@keyframes robot-shadow-breathe {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scaleX(0.82);
+    opacity: 0.55;
+  }
+}
+
+@keyframes robot-signal {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes robot-blink {
+  0%,
+  41%,
+  45%,
+  100% {
+    transform: scaleY(1);
+  }
+  43% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes robot-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  18%,
+  50%,
+  82% {
+    transform: rotate(-25deg);
+  }
+  34%,
+  66% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-floating,
+  .robot-shadow,
+  .robot-antenna-glow,
+  .robot-eyes,
+  .robot-is-waving .robot-forearm {
+    animation: none;
+  }
+
+  .robot-forearm {
+    transition: none;
+  }
+  .robot-is-waving .robot-forearm {
+    transform: rotate(-22deg);
+  }
+}
