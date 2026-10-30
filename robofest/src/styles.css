@@ -211,10 +211,6 @@ h2 {
   color: #071713;
   border: 1px solid var(--mint);
 }
-.button-primary:hover {
-  background: #8fffe4;
-  box-shadow: 0 5px 24px #63f5d51c;
-}
 .button-nav {
   border: 1px solid #63f5d565;
   color: var(--mint);
@@ -2018,8 +2014,21 @@ body { background: linear-gradient(135deg, #060b17, #091426 65%, #060c19); }
   border-color: #33def3;
   color: #041725;
   box-shadow: 0 4px 16px #00bddd1c;
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
-.button-primary:hover { background: #59e6fb; box-shadow: 0 4px 22px #00bddd30; }
+/* Keep the same blue gradient in every state, without a pale hover flash. */
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover {
+    filter: brightness(1.04);
+    box-shadow: 0 5px 18px #00bddd26;
+  }
+}
+.button-primary:active {
+  filter: brightness(.96);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px #00bddd1c;
+}
 .button-nav { color: #96eafd; background: #0a1c2d; border-color: #269fc45c; box-shadow: none; }
 .button-nav:hover { background: #0e2c40; }
 .button-text { text-shadow: none; }
