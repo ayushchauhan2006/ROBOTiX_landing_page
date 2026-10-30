@@ -1,0 +1,85 @@
+/* Electric-blue reference palette; preserve layout, typography, and interactions. */
+:root {
+  --bg: #03051b;
+  --panel: #0b1235;
+  --mint: #8cafff;
+  --line: #6183ff38;
+  --muted: #bac6dd;
+  --text-secondary: #bac6dd;
+  --text-subtle: #a7b6d3;
+  --theme-blue: #8cafff;
+  --theme-border: #5273ff52;
+  background: var(--bg);
+  color: #edf2ff;
+  color-scheme: dark;
+}
+body { background: linear-gradient(140deg, #03051b, #080e31 65%, #050822); }
+::selection { background: #2549ee; color: #fff; }
+.site-header { background: #050922f5; border-bottom-color: var(--theme-border); box-shadow: 0 8px 28px #01051650; }
+.brand-symbol { background: #0c1938; color: #d8e3ff; border-color: #6b8fe64a; }
+.brand-word { text-shadow: 0 0 16px #456dff25; }
+.hero {
+  background: radial-gradient(ellipse at 80% 48%, #234aff70, transparent 43%),
+    radial-gradient(ellipse at 65% 4%, #4031d840, transparent 42%),
+    linear-gradient(110deg, #03051b 15%, #090e35 65%, #0b1551);
+}
+.hero::after { background: radial-gradient(ellipse, #315bff55, #3424c533 42%, transparent 68%); }
+.hero-grid { background-image: linear-gradient(#7896ff08 1px, transparent 1px), linear-gradient(90deg, #7896ff08 1px, transparent 1px); }
+.hero .edition-badge { color: #d0dcfa; }
+.hero .edition-badge::after { background: linear-gradient(90deg, #799cff 0 48px, #799cff2e 48px, transparent 85%); }
+.hero .edition-badge > .status-dot { background: #799cff; }
+.hero .edition-badge > .badge-divider { background: #8499c766; }
+.hero .hero-kicker { color: #edf2ff; text-shadow: 0 0 24px #365bdc20; }
+.hero-kicker span, .hero h1 > span, .hero h1 .serif-accent, .serif-accent { color: var(--theme-blue); }
+.hero-kicker span { color: #9dcaff; text-shadow: 0 0 22px #3a68ff80, 0 0 60px #2649ff45; }
+.hero h1 { color: #dce5fa; }
+.status-dot { background: #89a8ff; box-shadow: 0 0 10px #668aff55; }
+.button-primary {
+  background: linear-gradient(140deg, #315bff, #2444dc 65%, #3430c7);
+  color: #ffffff; border-color: #8eaaff80;
+  box-shadow: 0 0 22px #315bff42, inset 0 1px 0 #c4d5ff38;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover { filter: brightness(1.08); box-shadow: 0 0 30px #315bff65, inset 0 1px 0 #c4d5ff45; }
+}
+.button-primary:active { filter: brightness(.94); box-shadow: 0 2px 10px #102d8033; }
+.button-nav { color: #c3d3ff; background: #0b1834; border-color: #6b8fe657; }
+.button-nav:hover { background: #14264c; }
+.orbit { border-color: #8eb4ff80; background: radial-gradient(circle, transparent 65%, #476bff22 68%, transparent 70%); box-shadow: 0 0 35px #315bff50, inset 0 0 25px #4364ff28; }
+.orbit-two { border-color: #697de64d; background: transparent; box-shadow: none; }
+.visual-cross { color: #91a9f177; }
+.robot-tag { color: #bdd0ff; background: #0b1833ed; border-color: #7091e745; }
+.robot-tag .status-dot { background: #89a8ff; }
+.robot-scene { filter: drop-shadow(0 18px 28px #2444a833); }
+.events-section {
+  background-color: #060b2c;
+  background-image: linear-gradient(180deg, #080c3bb0, #101e665c 40%, #050923cf), url('./assets/robotics-events-background.png');
+}
+.event-card { background: #090f2b; border-color: #6f8cff50; box-shadow: 0 10px 28px #01051755; }
+.event-card:hover { box-shadow: 0 12px 36px #243df52e; }
+.event-art { background: #060e23; border-bottom-color: #6a8ce438; }
+.event-tags > span { color: #c1cfe9; background: #10203e; border-color: #637fae40; }
+.event-dialog { background: #0a1631; border-color: var(--theme-border); }
+.register-panel { background: radial-gradient(ellipse at 88% 50%, #2b44f04d, transparent 65%), #090f2e; border-color: var(--theme-border); }
+.register-panel::after { background-image: linear-gradient(#8aa7ff08 1px, transparent 1px), linear-gradient(90deg, #8aa7ff08 1px, transparent 1px); }
+.register-decoration > svg, .register-circuit { color: #83a1fa; }
+.register-circuit-terminal { fill: #0b1734; }
+.site-footer { background: #04071d; border-top-color: #6b8cff38; }
+.section-label::after { background: #7295ff66; }
+.energy-halo { filter: drop-shadow(0 0 7px #426aff90); }
+.energy-bolt { filter: drop-shadow(0 0 4px #6ba5ff); }
+@media (max-width: 760px) { .desktop-nav.is-open { background: #09142d; border-color: var(--theme-border); } }
+/* Bring the floating guide into the same palette; keep the chosen grey invitation. */
+.bolt-chat { background: #0a1030f5; color: #edf2ff; }
+.bolt-chat-avatar, .bolt-message > span { color: #a3baff; }
+.bolt-chat-header p, .bolt-chat-note { color: #b1bfd9; }
+.bolt-chat-close:hover { background: #22355c; }
+.bolt-message-user { background: #1a2e5c; }
+.bolt-message a { color: #b0c5ff; }
+.bolt-chat-form { background: #040b1dbd; }
+.bolt-chat-form button { background: #3154e8; color: #f5f7ff; }
+.bolt-chat-form input::placeholder { color: #a4b5d1; }
+.bolt-chat-log { scrollbar-color: #3a5085 transparent; }
+.header-hanging-robot .robot-ask-banner { background: #0c1b3c; border-color: #6c8ce65c; color: #d2dfff; }
+.header-hanging-robot .robot-ask-banner:hover { background: #152952; }
+

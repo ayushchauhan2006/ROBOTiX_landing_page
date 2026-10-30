@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./HeroCircuit.css";
 
-const colors = ["#38bdff", "#4be1b0", "#ff6b79"];
+const colors = ["#6889da", "#58b59d", "#ce7483"];
 const wires = [
   "M0 94H155L199 138H330L365 103H530",
   "M0 118H140L187 165H310L357 212H490",
@@ -83,15 +83,15 @@ export default function HeroCircuit({ portal = false }) {
       {portal ? <>
         <CircuitChip x={80} y={505} color={colors[0]} />
         {portalWires.map((d, i) => <g key={d} style={{color: colors[i % 3], "--delay": `${-i * .9}s`, "--duration": "6s"}}>
-          <path d={d} stroke="currentColor" strokeWidth="1" opacity=".3" />
+          <path d={d} stroke="currentColor" strokeWidth="1.1" opacity=".56" />
           <path className="circuit-signal circuit-signal-glow" d={d} pathLength="100" stroke="currentColor" strokeWidth="7" strokeDasharray="7 93" />
           <path className="circuit-signal" d={d} pathLength="100" stroke="currentColor" strokeWidth="2" strokeDasharray="3 97" />
         </g>)}
         <g className="energy-halo">
-          <circle cx="300" cy="285" r="243" stroke="#239eea" strokeWidth="24" opacity=".035" />
-          <circle cx="300" cy="285" r="229" stroke="#4bcfff" strokeOpacity=".18" />
-          <circle cx="300" cy="285" r="244" stroke="#4796d9" strokeOpacity=".22" strokeDasharray="44 8 3 8" />
-          <circle cx="300" cy="285" r="217" stroke="#39baff" strokeWidth="3" strokeDasharray="92 260 190 320" opacity=".55" />
+          <circle cx="300" cy="285" r="243" stroke="#3456ff" strokeWidth="24" opacity=".08" />
+          <circle cx="300" cy="285" r="229" stroke="#a3cbff" strokeOpacity=".35" />
+          <circle cx="300" cy="285" r="244" stroke="#6084ff" strokeOpacity=".4" strokeDasharray="44 8 3 8" />
+          <circle cx="300" cy="285" r="217" stroke="#5279ff" strokeWidth="3" strokeDasharray="92 260 190 320" opacity=".8" />
           <circle cx="300" cy="285" r="234" stroke="#4be1b0" strokeWidth="2" strokeDasharray="45 490 110 825" opacity=".5" />
           <circle cx="300" cy="285" r="251" stroke="#ff6b79" strokeWidth="2" strokeDasharray="65 610 36 870" opacity=".4" />
         </g>
@@ -114,8 +114,8 @@ export default function HeroCircuit({ portal = false }) {
         })}
       </> : <>
         {wires.map((d,i)=><g key={d} style={{color:colors[i%3],"--delay":`${-i*.8}s`, "--duration": `${6 + i % 5}s`}}>
-          <path d={d} stroke="currentColor" strokeWidth="6" opacity=".035" />
-          <path d={d} stroke="currentColor" strokeWidth="1" opacity=".36" />
+          <path d={d} stroke="currentColor" strokeWidth="3" opacity=".035" />
+          <path d={d} stroke="currentColor" strokeWidth="1.1" opacity=".6" />
           <path className="circuit-signal circuit-signal-glow" d={d} pathLength="100" stroke="currentColor" strokeWidth="8" strokeDasharray="6 94" />
           <path className="circuit-signal" d={d} pathLength="100" stroke="currentColor" strokeWidth="2" strokeDasharray="3 97" />
         </g>)}

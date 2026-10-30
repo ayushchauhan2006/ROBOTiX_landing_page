@@ -4,14 +4,14 @@
   pointer-events: none;
   user-select: none;
 }
-.hero-circuit { z-index: -1; mask-image: linear-gradient(90deg, #000d, #0003 22%, #0004 43%, #000b 57%, #000); }
+.hero-circuit { z-index: -1; mask-image: linear-gradient(90deg, #000, #0006 22%, #0007 43%, #000e 57%, #000); }
 .hero-circuit svg, .robot-energy svg { display: block; width: 100%; height: 100%; }
 .robot-energy { z-index: 0; }
 .hero-visual > .robot-interactive { z-index: 1; }
 .hero-visual > .cursor-hint { z-index: 2; }
 .energy-halo { filter: drop-shadow(0 0 5px #199dc64d); }
 .energy-flow { transform-origin: 300px 285px; animation: energy-orbit 28s linear infinite; opacity: .65; }
-.circuit-signal { animation: circuit-signal var(--duration, 9s) linear infinite; animation-delay: var(--delay); opacity: .9; stroke-linecap: round; }
+.circuit-signal { animation: circuit-signal var(--duration, 9s) linear infinite; animation-delay: var(--delay); opacity: .8; stroke-linecap: round; }
 .circuit-signal-glow { opacity: .12; }
 .circuit-core { animation: circuit-core 5s ease-in-out infinite; animation-delay: var(--delay); }
 .circuit-junction { animation: circuit-junction 4s ease-out infinite; animation-delay: var(--delay); transform-box: fill-box; transform-origin: center; }
@@ -25,7 +25,7 @@
 @keyframes energy-spark { 0%, 65%, 100% { opacity: 0; transform: translate(0, 0); } 72% { opacity: .8; } 92% { opacity: 0; transform: translate(7px, -18px); } }
 .circuit-paused * { animation-play-state: paused !important; }
 @media (max-width: 760px) {
-  .hero-circuit { opacity: .65; mask-image: linear-gradient(#0003, #0005 45%, #000 70%); }
+  .hero-circuit { opacity: .85; mask-image: linear-gradient(#0005, #0007 45%, #000 70%); }
   .robot-energy { opacity: .8; }
 }
 @media (prefers-reduced-motion: reduce) {
