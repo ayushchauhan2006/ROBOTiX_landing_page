@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import "./Robot.css";
 
 /** An original SVG robot. Its gaze follows the page pointer without React rerenders. */
@@ -98,13 +98,20 @@ export default function Robot({ hanging = false, onAsk }) {
     };
   }, []);
 
-  const wave = () => {
+  const wave = useCallback(() => {
     clearTimeout(waveTimerRef.current);
     // Remount only the waving arm so even rapid clicks restart its animation.
     setGreetingCount((count) => count + 1);
     setIsWaving(true);
     waveTimerRef.current = setTimeout(() => setIsWaving(false), 1700);
-  };
+  }, []);
+
+  useEffect(() => {
+    // Greet on each page load, without opening chat or repeating on scroll.
+    if (hanging) return;
+    const welcomeTimer = setTimeout(wave, 350);
+    return () => clearTimeout(welcomeTimer);
+  }, [hanging, wave]);
 
   return (
     <button
