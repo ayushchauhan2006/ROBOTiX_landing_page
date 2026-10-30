@@ -17,6 +17,7 @@ import {
   Plus,
 } from "lucide-react";
 import Robot from "./components/Robot.jsx";
+import RobotChat from "./components/RobotChat.jsx";
 import EventVideo from "./components/EventVideo.jsx";
 import HeroCircuit from "./components/HeroCircuit.jsx";
 import RobotixCircuit from "./components/RobotixCircuit.jsx";
@@ -183,6 +184,10 @@ function EventDialog({ event, onClose, returnFocusRef }) {
 
 export default function App() {
   useScrollReveal();
+  const [chatOpen, setChatOpen] = useState(false);
+  const chatTriggerRef = useRef(null);
+  const openChat = (event) => { chatTriggerRef.current = event.currentTarget; setChatOpen(true); };
+  const closeChat = (restoreFocus = true) => { setChatOpen(false); if (restoreFocus !== false && chatTriggerRef.current?.isConnected) chatTriggerRef.current.focus({ preventScroll: true }); };
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -300,7 +305,8 @@ export default function App() {
       </header>
       {showHangingRobot && !menuOpen && !selectedEvent && (
         <div className="header-hanging-robot" style={{ top: hangingTop }}>
-          <Robot hanging />
+          <Robot hanging onAsk={openChat} />
+          <button className="robot-ask-banner" type="button" onClick={openChat} aria-controls="bolt-chat" aria-expanded={chatOpen}>Ask me your doubts</button>
         </div>
       )}
 
@@ -359,10 +365,9 @@ export default function App() {
               <div className="robot-tag">
                 <span className="status-dot" /> HELLO, HUMAN.
               </div>
-              <Robot />
-              <div className="cursor-hint">
-                <span className="pointer-hint">Click me to say hi!</span>
-                <span className="touch-hint">Tap me to say hi!</span>
+              <Robot onAsk={openChat} />
+              <div className="hero-ask-callout">
+                <button className="robot-ask-banner" type="button" onClick={openChat} aria-controls="bolt-chat" aria-expanded={chatOpen}><Cpu size={18} /> Ask me your doubts <ArrowUpRight size={16} /></button>
               </div>
             </div>
             <div className="hero-bottom">
@@ -659,6 +664,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <RobotChat open={chatOpen && !selectedEvent && !menuOpen} onClose={closeChat} events={events} faqs={faqs} />
       {selectedEvent && (
         <EventDialog
           event={selectedEvent}

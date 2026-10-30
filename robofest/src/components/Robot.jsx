@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import "./Robot.css";
 
 /** An original SVG robot. Its gaze follows the page pointer without React rerenders. */
-export default function Robot({ hanging = false }) {
+export default function Robot({ hanging = false, onAsk }) {
   const prefix = useId().replace(/:/g, "");
   const stageRef = useRef(null);
   const gazeRef = useRef(null);
@@ -111,11 +111,11 @@ export default function Robot({ hanging = false }) {
       ref={stageRef}
       className={`robot-interactive${hanging ? " robot-hanging" : ""}${isWaving ? " robot-is-waving" : ""}`}
       type="button"
-      onClick={wave}
+      onClick={(event) => { wave(); onAsk?.(event); }}
       onPointerEnter={(event) => {
         if (event.pointerType !== "touch") wave();
       }}
-      aria-label={hanging ? "Say hi to upside-down Bolt" : "Meet Bolt, our robot. Click or press Enter to say hello."}
+      aria-label={onAsk ? "Ask Bolt about Robofest" : hanging ? "Say hi to upside-down Bolt" : "Meet Bolt, our robot. Click or press Enter to say hello."}
       title="Say hello to Bolt"
     >
       <svg
