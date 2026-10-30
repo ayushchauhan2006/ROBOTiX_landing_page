@@ -1,10 +1,12 @@
 # ROBOFEST 2026 — Build Beyond Ordinary
 
+[View the live website](https://ayushchauhan2006.github.io/ROBOTiX_landing_page/)
+
 A robotics festival landing page by **Ayush Chauhan**, created for the **ROBOTiX Club, NIT Raipur — Web & App Development recruitment challenge**.
 
 ## About me
 
-I'm Ayush Chauhan, a third-semester student at NIT Raipur. I built this project as part of my application to the Web & App Development domain of ROBOTiX Club. I wanted to create a page that reflects my interest in web development and makes robotics feel interactive and approachable.
+I'm Ayush Chauhan, a third-semester IT student at NIT Raipur. I built this project as part of my application to the Web & App Development domain of ROBOTiX Club. I wanted to create a page that reflects my interest in web development and makes robotics feel interactive and approachable.
 
 ## About the project
 
@@ -36,7 +38,7 @@ The interface uses Lucide React icons and Google Fonts. The robot is drawn in SV
 
 ## Credits
 
-I chose the technology stack and guided the design and revisions. **OpenAI Codex provided substantial assistance with implementation, styling, animations, and documentation. Gemini was used for the event videos.** The page is a custom implementation rather than an unchanged template.
+I built this project with help from OpenAI Codex for the styling, and animations, while choosing the design direction by me and refining it along the way.
 
 Event information and the latest color direction reference the [official ROBOFEST website](https://robotix.nitrr.ac.in/robofest). The March 22–23, 2026 edition has concluded, so the page directs visitors to the club for future registration updates.
 
@@ -44,4 +46,4 @@ Event information and the latest color direction reference the [official ROBOFES
 
 **Created by Ayush Chauhan · NIT Raipur**
 
-[GitHub profile](https://github.com/ayushchauhan2006) · [Project repository](https://github.com/ayushchauhan2006/ROBOTiX_landing_page)
+[GitHub profile](https://github.com/ayushchauhan2006) · [Project repository](https://github.com/ayushchauhan2006/ROBOTiX_landing_page) . [View the live website](https://ayushchauhan2006.github.io/ROBOTiX_landing_page/)

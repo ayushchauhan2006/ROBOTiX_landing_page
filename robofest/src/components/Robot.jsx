@@ -15,52 +15,66 @@ export default function Robot({ hanging = false }) {
 
   useEffect(() => {
     let frame = 0;
+    let lastTime = 0;
     let gaze = { x: 0, y: 0 };
     let target = { x: 0, y: 0 };
     const head = { x: 0, y: 0 };
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const animateEyes = () => {
-      const easing = reducedMotion.matches ? 1 : 0.18;
+    const animateEyes = (time) => {
+      const elapsed = lastTime ? Math.min(time - lastTime, 40) : 16;
+      lastTime = time;
+      // Eyes react first; the neck follows slightly behind, at any refresh rate.
+      const easing = reducedMotion.matches ? 1 : 1 - Math.exp(-elapsed / 45);
+      const neckEasing = reducedMotion.matches ? 1 : 1 - Math.exp(-elapsed / 95);
       gaze.x += (target.x - gaze.x) * easing;
       gaze.y += (target.y - gaze.y) * easing;
       gazeRef.current?.setAttribute(
         "transform",
-        `translate(${gaze.x} ${gaze.y})`,
+        `translate(${gaze.x * 23} ${gaze.y * 14})`,
       );
 
-      // A slower, small movement pivots the head around the neck socket.
+      // Pivot at the neck, keeping the body steady and the head attached.
       const headTarget = reducedMotion.matches ? { x: 0, y: 0 } : target;
-      head.x += (headTarget.x - head.x) * 0.15;
-      head.y += (headTarget.y - head.y) * 0.15;
+      head.x += (headTarget.x - head.x) * neckEasing;
+      head.y += (headTarget.y - head.y) * neckEasing;
       headRef.current?.setAttribute(
         "transform",
-        `translate(0 ${head.y * 0.5}) rotate(${head.x * 0.45} 300 300) rotate(-7 300 209)`,
+        `translate(${head.x * 8} ${head.y * 12}) rotate(${head.x * 14} 300 300)`,
       );
       neckRef.current?.setAttribute(
         "transform",
-        `rotate(${head.x * 0.4} 300 310) translate(${head.x * 0.1} ${head.y * 0.3})`,
+        `rotate(${head.x * 10} 300 310) translate(${head.x * 3} ${head.y * 8})`,
       );
       const remaining = Math.abs(target.x - gaze.x) + Math.abs(target.y - gaze.y)
         + Math.abs(headTarget.x - head.x) + Math.abs(headTarget.y - head.y);
-      if (remaining > 0.05) {
+      if (remaining > 0.002) {
         frame = requestAnimationFrame(animateEyes);
       } else {
         frame = 0;
+        lastTime = 0;
       }
     };
 
     const followPointer = (event) => {
       // Touch remains native: tapping the robot waves, and scrolling stays free.
       if (event.pointerType === "touch") return;
+      const bounds = stageRef.current?.getBoundingClientRect();
+      if (!bounds || bounds.bottom < 0 || bounds.top > window.innerHeight) return;
       const svg = stageRef.current?.querySelector("svg");
       const matrix = svg?.getScreenCTM();
       if (!matrix) return;
       // Convert the pointer to SVG coordinates, including the upside-down rotation.
       const pointer = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+      // Use screen-space reach so the tiny hanging robot does not immediately
+      // hit its movement limit. The inverted SVG keeps its gaze correctly oriented.
+      const scale = Math.hypot(matrix.a, matrix.b);
+      if (!scale) return;
+      const reachX = Math.max(150, window.innerWidth * 0.24) / scale;
+      const reachY = Math.max(120, window.innerHeight * 0.22) / scale;
       target = {
-        x: Math.max(-12, Math.min(12, ((pointer.x - 300) / 600) * 22)),
-        y: Math.max(-8, Math.min(8, ((pointer.y - 210) / 600) * 16)),
+        x: Math.tanh((pointer.x - 300) / reachX),
+        y: Math.tanh((pointer.y - 210) / reachY),
       };
       if (!frame) frame = requestAnimationFrame(animateEyes);
     };
@@ -478,7 +492,7 @@ export default function Robot({ hanging = false }) {
             strokeLinecap="round"
           />
 
-          <g ref={headRef} className="robot-head" transform="rotate(-7 300 209)">
+          <g ref={headRef} className="robot-head">
             <path d="M298 116v-29" stroke="#718D8A" strokeWidth="8" />
             <path d="M296 111V87" stroke="#D3E3D6" strokeWidth="2" />
             <circle

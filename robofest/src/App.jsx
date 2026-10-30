@@ -20,6 +20,7 @@ import Robot from "./components/Robot.jsx";
 import EventVideo from "./components/EventVideo.jsx";
 import HeroCircuit from "./components/HeroCircuit.jsx";
 import RobotixCircuit from "./components/RobotixCircuit.jsx";
+import useScrollReveal from "./hooks/useScrollReveal.js";
 
 const OFFICIAL_URL = "https://robotix.nitrr.ac.in/robofest";
 
@@ -181,6 +182,7 @@ function EventDialog({ event, onClose, returnFocusRef }) {
 }
 
 export default function App() {
+  useScrollReveal();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -377,12 +379,12 @@ export default function App() {
           id="about"
           aria-labelledby="about-title"
         >
-          <div className="section-label">
+          <div className="section-label" data-reveal>
             <span>01 / THE IDEA</span>
             <span className="label-line" />
           </div>
           <div className="about-grid">
-            <div>
+            <div data-reveal>
               <h2 id="about-title">
                 Not just a competition.
                 <br />A <span className="serif-accent">platform</span> for builders.
@@ -398,7 +400,7 @@ export default function App() {
                 <span className="tiny-bracket">]</span>
               </div>
             </div>
-            <div className="about-copy">
+            <div className="about-copy" data-reveal style={{ "--reveal-delay": "100ms" }}>
               <p>
                 Robotics competitions that challenge your skills.
                 <br />
@@ -420,25 +422,25 @@ export default function App() {
             </div>
           </div>
           <div className="about-facts">
-            <div>
+            <div data-reveal>
               <strong>
                 02<span>/</span>
               </strong>
               <span>DAYS OF DISCOVERY</span>
             </div>
-            <div>
+            <div data-reveal style={{ "--reveal-delay": "70ms" }}>
               <strong>
                 07<span>/</span>
               </strong>
               <span>EVENTS. ENDLESS IDEAS.</span>
             </div>
-            <div>
+            <div data-reveal style={{ "--reveal-delay": "140ms" }}>
               <strong>
                 01<span>/</span>
               </strong>
               <span>COMMUNITY OF BUILDERS</span>
             </div>
-            <div className="fact-location">
+            <div className="fact-location" data-reveal style={{ "--reveal-delay": "210ms" }}>
               <MapPin size={30} />
               <span>
                 NATIONAL INSTITUTE
@@ -455,12 +457,12 @@ export default function App() {
           aria-labelledby="events-title"
         >
           <div className="container">
-            <div className="section-label">
+            <div className="section-label" data-reveal>
               <span>02 / CHOOSE YOUR CHALLENGE</span>
               <span className="label-line" />
               <span className="section-side-note">BUILT FOR THE CURIOUS</span>
             </div>
-            <div className="section-heading">
+            <div className="section-heading" data-reveal>
               <div>
                 <h2 id="events-title">
                   Choose your <span className="serif-accent">competition.</span>
@@ -480,12 +482,14 @@ export default function App() {
               </a>
             </div>
             <div className="event-grid">
-              {events.map((event) => {
+              {events.map((event, index) => {
                 const Icon = event.icon;
                 return (
                   <article
                     className={`event-card ${event.accent}`}
                     key={event.id}
+                    data-reveal
+                    style={{ "--reveal-delay": `${index * 100}ms` }}
                   >
                     <div className="event-art">
                       <span className="event-number">/{event.number}</span>
@@ -523,7 +527,7 @@ export default function App() {
                 );
               })}
             </div>
-            <div className="events-footnote">
+            <div className="events-footnote" data-reveal>
               <span className="status-dot" />
               <span>
                 Competitions designed to challenge engineering, coding, and
@@ -541,7 +545,7 @@ export default function App() {
           id="register"
           aria-labelledby="register-title"
         >
-          <div className="register-panel">
+          <div className="register-panel" data-reveal>
             <div className="register-content">
               <span className="eyebrow">
                 <span className="status-dot" /> READY TO PARTICIPATE?
@@ -579,7 +583,7 @@ export default function App() {
           id="faq"
           aria-labelledby="faq-title"
         >
-          <div className="faq-heading">
+          <div className="faq-heading" data-reveal>
             <div className="section-label">
               <span>03 / FREQUENTLY ASKED</span>
             </div>
@@ -595,6 +599,8 @@ export default function App() {
               <div
                 className={`faq-item ${openFaq === i ? "is-open" : ""}`}
                 key={question}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 70}ms` }}
               >
                 <h3>
                   <button
@@ -625,7 +631,7 @@ export default function App() {
 
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-main">
+          <div className="footer-main" data-reveal>
             <div>
               <Brand footer />
               <p>
@@ -637,7 +643,7 @@ export default function App() {
             <div className="footer-links">
               <a href="#about">About</a>
               <a href="#events">Events</a>
-              <a href={OFFICIAL_URL} target="_blank" rel="noreferrer">
+              <a href="https://robotix.nitrr.ac.in/home" target="_blank" rel="noreferrer">
                 Official ROBOTiX <ArrowUpRight size={14} />
               </a>
             </div>
@@ -645,7 +651,7 @@ export default function App() {
               <ArrowUpRight size={23} />
             </a>
           </div>
-          <div className="footer-bottom">
+          <div className="footer-bottom" data-reveal>
             <span>© 2026 · ROBOFEST concept for ROBOTiX Club, NIT Raipur.</span>
             <span>
               Made by <strong>Ayush Chauhan</strong>
